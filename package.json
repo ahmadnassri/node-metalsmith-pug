@@ -2,6 +2,11 @@
   "name": "metalsmith-jade",
   "description": "A Metalsmith plugin to convert jade files.",
   "repository": "git://github.com/Skinkworks/metalsmith-jade.git",
+  "author":"Max Bareiss <admin@maxbareiss.com>",
+  "contributors":[{
+      "name":"Max Bariess",
+      "email":"admin@maxbareiss.com"
+  }],
   "version": "0.0.1",
   "license": "MIT",
   "main": "lib/index.js",
