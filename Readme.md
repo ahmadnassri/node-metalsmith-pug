@@ -42,7 +42,7 @@ Options:
   <dt><code>useMetadata</code></dt>
   <dd>Expose Metalsmith's global metadata to the Jade template. Defaults to <code>false</code>.</dd>
 
-  <dt><code>pretty<code></dt>
+  <dt><code>pretty</code></dt>
   <dd>If you want pretty HTML or compact HTML. Defaults to <code>false</code> (compact).</dd>
   
   <dt><code>locals</code></dt>
