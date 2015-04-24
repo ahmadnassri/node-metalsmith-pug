@@ -17,7 +17,7 @@ npm install --save metalsmith-jade
 ## API
 
 Pass `options` to the jade plugin and pass it to Metalsmith with the `use` method:
-  
+
 ```js
 var Metalsmith = require('metalsmith')
 var jade = require('metalsmith-jade')
