@@ -1,22 +1,41 @@
 {
-  "name": "metalsmith-jade",
-  "description": "A Metalsmith plugin to convert jade files.",
-  "repository": "git://github.com/Skinkworks/metalsmith-jade.git",
-  "author":"Max Bareiss <admin@maxbareiss.com>",
-  "contributors":[{
-      "name":"Max Bariess",
-      "email":"admin@maxbareiss.com"
-  }],
   "version": "0.0.4",
+  "name": "metalsmith-jade",
+  "description": "Metalsmith plugin to convert jade files.",
+  "author": "Ahmad Nassri <ahmad@ahmadnassri.com> (https://www.ahmadnassri.com/)",
+  "repository": "ahmadnassri/metalsmith-jade",
   "license": "MIT",
-  "main": "lib/index.js",
-  "dependencies": {
-    "jade":"1.8.2",
-    "debug": "~0.7.4"
+  "main": "src/index.js",
+  "bin": "bin/unnamed",
+  "keywords": [
+    "metalsmith",
+    "plugin",
+    "jade"
+  ],
+  "engines": {
+    "node": ">=0.10"
+  },
+  "files": [
+    "src"
+  ],
+  "bugs": {
+    "url": "https://github.com/ahmadnassri/metalsmith-jade/issues"
+  },
+  "scripts": {
+    "test": "standard && mocha --reporter spec",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha",
+    "codeclimate": "codeclimate < coverage/lcov.info"
   },
   "devDependencies": {
-    "mocha": "1.x",
-    "metalsmith": "0.x",
-    "assert-dir-equal": "0.x"
+    "codeclimate-test-reporter": "0.0.4",
+    "istanbul": "^0.3.13",
+    "metalsmith": "^1.6.0",
+    "mocha": "^2.2.4",
+    "should": "^6.0.1",
+    "standard": "^3.7.1"
+  },
+  "dependencies": {
+    "debug": "^2.1.3",
+    "jade": "^1.9.2"
   }
 }
