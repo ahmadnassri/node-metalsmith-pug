@@ -1,5 +1,5 @@
 {
-  "version": "0.0.4",
+  "version": "1.0.0",
   "name": "metalsmith-jade",
   "description": "Metalsmith plugin to convert jade files.",
   "author": "Ahmad Nassri <ahmad@ahmadnassri.com> (https://www.ahmadnassri.com/)",
