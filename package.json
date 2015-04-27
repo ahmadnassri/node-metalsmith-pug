@@ -6,7 +6,6 @@
   "repository": "ahmadnassri/metalsmith-jade",
   "license": "MIT",
   "main": "src/index.js",
-  "bin": "bin/unnamed",
   "keywords": [
     "metalsmith",
     "plugin",
