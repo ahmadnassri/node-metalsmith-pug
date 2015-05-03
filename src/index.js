@@ -29,7 +29,7 @@ function plugin (options) {
     Object.keys(files).forEach(function (file) {
       debug('checking file: %s', file)
 
-      if (/\.jade/.test(path.extname(file))) {
+      if (!/\.jade/.test(path.extname(file))) {
         return
       }
 
