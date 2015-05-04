@@ -27,6 +27,11 @@ var metalsmith = new Metalsmith(__dirname)
     pretty: false,
     locals: {
       postName: 'good post name'
+    },
+    filters: {
+      foo: function (block) {
+        return block.replace('foo', 'bar')
+      }
     }
   }))
 ```
@@ -49,38 +54,16 @@ All options are passed directly to jade. If `options` has a `locals` key, that w
 
 ## Options:
 
-| Name          | Details                                                   | Default |
-| ------------- | --------------------------------------------------------- | ------- |
-| `useMetadata` | Expose Metalsmith's global metadata to the Jade template. | `false` |
-| `pretty`      | If you want pretty HTML or compact HTML.                  | `false` |
-| `locals`      | Pass additional variables to the template.                | `{}`    |
+any of the `options` parameters for [`jade`](http://jade-lang.com/api/) with the additional plugin specific properties below:
 
-### Register a jade filter
 
-Since `metalsmith-jade` uses the jade runtime located at `./node_modules/metalsmith-jade/node_modules/jade` and not the project specific one at `./node_modules/jade` it is not possible to register filters on jade directly.
-
-Therefore the `regiserFilter` method was introduced. The method accepts the name of a filter and a filter factory method. The filter factory method is passed the jade object, the jade runtime *`jade/lib/runtime`* and the jade filters *`jade/lib/filters`*.
-
-it should return a method which will be registered as a jade filter using the name passed as the first argument to the `registerFilter` method.
+| Name          | Type      | Details                                                   | Default |
+| ------------- | --------- | --------------------------------------------------------- | ------- |
+| `useMetadata` | `Boolean` | Expose Metalsmith's global metadata to the Jade template. | `false` |
+| `locals`      | `Object`  | Pass additional locals to the template                    | `{}`    |
+| `filters`     | `Object`  | register functions to be used as template filters         | `{}`    |
 
 ###### Example
-
-```js
-var jade = require('metalsmith-jade');
-
-jade.registerFilter('sample', function (jade, runtime, filters) {
-  return function (text) {
-    // e.g. convert jade markup to html
-    var html = jade.render(text, options)
-
-    // e.g. apply some other jade filter
-    var filtered = filters('fooFilter', text)
-
-    // return the markup to be placed at the filter invocations position
-    return 'foobar'
-  }  
-})
-```
 
 ## Support
 

@@ -8,6 +8,7 @@ var util = require('util')
 module.exports = function (options) {
   var opts = options || {}
   opts.locals = opts.locals || {}
+  opts.filters = opts.filters || {}
 
   return function (files, metalsmith, done) {
     setImmediate(done)
