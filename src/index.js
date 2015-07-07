@@ -28,6 +28,7 @@ module.exports = function (options) {
       var data = files[file]
       var dir = path.dirname(file)
       var name = path.basename(file, path.extname(file))
+      var fileLocals = {}
 
       // do we need to add an extension?
       if (path.extname(name) === '') {
@@ -44,7 +45,7 @@ module.exports = function (options) {
 
       // also use the file's own data
       if (opts.useMetadata) {
-        opts.locals = util._extend(opts.locals, data)
+        fileLocals = util._extend(util._extend({}, opts.locals), data)
       }
 
       // assign filters
@@ -55,7 +56,7 @@ module.exports = function (options) {
       }
 
       // render
-      var str = jade.compile(data.contents.toString(), opts)(opts.locals)
+      var str = jade.compile(data.contents.toString(), opts)(fileLocals)
 
       // convert to a buffer
       data.contents = new Buffer(str)
