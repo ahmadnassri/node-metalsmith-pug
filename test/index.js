@@ -1,14 +1,14 @@
 /* global afterEach, describe, it */
 'use strict'
 
-var del = require('del')
 var fs = require('fs')
 var jade = require('..')
 var Metalsmith = require('metalsmith')
+var rimraf = require('rimraf')
 var should = require('should')
 
 afterEach(function (done) {
-  del('test/*/build', done)
+  rimraf('test/*/build', done)
 })
 
 describe('metalsmith-jade', function () {

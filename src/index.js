@@ -1,9 +1,9 @@
 'use strict'
 
-var debug = require('debug')('metalsmith-jade')
+var debug = require('debug-log')('metalsmith-jade')
+var extend = require('util')._extend
 var jade = require('jade')
 var path = require('path')
-var util = require('util')
 
 module.exports = function (options) {
   var opts = options || {}
@@ -15,7 +15,7 @@ module.exports = function (options) {
 
     // extend with metalsmith global metadata
     if (opts.useMetadata) {
-      opts.locals = util._extend(opts.locals, metalsmith.metadata())
+      opts.locals = extend(opts.locals, metalsmith.metadata())
     }
 
     Object.keys(files).forEach(function (file) {
@@ -25,10 +25,10 @@ module.exports = function (options) {
         return
       }
 
+      var locals = opts.locals
       var data = files[file]
       var dir = path.dirname(file)
       var name = path.basename(file, path.extname(file))
-      var fileLocals = {}
 
       // do we need to add an extension?
       if (path.extname(name) === '') {
@@ -45,8 +45,10 @@ module.exports = function (options) {
 
       // also use the file's own data
       if (opts.useMetadata) {
-        fileLocals = util._extend(util._extend({}, opts.locals), data)
+        locals = extend(opts.locals, data)
       }
+
+      debug('locals: %j', locals)
 
       // assign filters
       if (opts.filters) {
@@ -56,7 +58,7 @@ module.exports = function (options) {
       }
 
       // render
-      var str = jade.compile(data.contents.toString(), opts)(fileLocals)
+      var str = jade.compile(data.contents.toString(), opts)(locals)
 
       // convert to a buffer
       data.contents = new Buffer(str)
