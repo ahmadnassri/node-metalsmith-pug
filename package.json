@@ -40,7 +40,7 @@
     "mocha": "^2.2.5",
     "rimraf": "^2.4.1",
     "should": "^8.3.0",
-    "standard": "^4.5.2"
+    "standard": "^7.1.0"
   },
   "dependencies": {
     "debug-log": "^1.0.0",
