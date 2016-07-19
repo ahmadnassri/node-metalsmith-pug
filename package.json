@@ -22,10 +22,10 @@
   },
   "scripts": {
     "codeclimate": "codeclimate < coverage/lcov.info",
-    "coverage": "istanbul cover --dir coverage _mocha -- -R dot",
+    "coverage": "node --harmony ./node_modules/.bin/istanbul cover --dir coverage _mocha -- -R dot",
     "posttest": "npm run coverage",
     "pretest": "standard && echint",
-    "test": "mocha"
+    "test": "mocha --harmony"
   },
   "echint": {
     "ignore": [
