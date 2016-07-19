@@ -2,7 +2,7 @@
 'use strict'
 
 var fs = require('fs')
-var jade = require('..')
+var pug = require('..')
 var Metalsmith = require('metalsmith')
 var rimraf = require('rimraf')
 var should = require('should')
@@ -11,11 +11,11 @@ afterEach(function (done) {
   rimraf('test/*/build', done)
 })
 
-describe('metalsmith-jade', function () {
+describe('metalsmith-pug', function () {
   it('should render html', function (done) {
     var smith = new Metalsmith('test/main')
 
-    smith.use(jade())
+    smith.use(pug())
 
     smith.build(function (err) {
       should.not.exist(err)
@@ -31,7 +31,7 @@ describe('metalsmith-jade', function () {
   it('should render files within directories', function (done) {
     var smith = new Metalsmith('test/main')
 
-    smith.use(jade())
+    smith.use(pug())
 
     smith.build(function (err) {
       should.not.exist(err)
@@ -47,7 +47,7 @@ describe('metalsmith-jade', function () {
   it('should render html with locals', function (done) {
     var smith = new Metalsmith('test/main')
 
-    smith.use(jade({
+    smith.use(pug({
       locals: {
         title: 'Foo'
       }
@@ -71,7 +71,7 @@ describe('metalsmith-jade', function () {
       foo: 'bar'
     })
 
-    smith.use(jade({
+    smith.use(pug({
       useMetadata: true
     }))
 
@@ -90,7 +90,7 @@ describe('metalsmith-jade', function () {
   it('should use extension prefix as extension', function (done) {
     var smith = new Metalsmith('test/main')
 
-    smith.use(jade({
+    smith.use(pug({
       locals: {
         foo: 'bar'
       }
@@ -112,10 +112,10 @@ describe('metalsmith-jade', function () {
     })
   })
 
-  it('should not run on none .jade files', function (done) {
+  it('should not run on none .pug files', function (done) {
     var smith = new Metalsmith('test/main')
 
-    smith.use(jade())
+    smith.use(pug())
 
     smith.build(function (err) {
       should.not.exist(err)
@@ -128,10 +128,10 @@ describe('metalsmith-jade', function () {
     })
   })
 
-  it('should register jade filters', function (done) {
+  it('should register pug filters', function (done) {
     var smith = new Metalsmith('test/filters')
 
-    smith.use(jade({
+    smith.use(pug({
       filters: {
         foo: function (block) {
           return block
