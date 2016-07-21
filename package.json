@@ -39,7 +39,7 @@
     "metalsmith": "^1.7.0",
     "mocha": "^2.2.5",
     "rimraf": "^2.4.1",
-    "should": "^9.0.0",
+    "should": "^10.0.0",
     "standard": "^7.1.2"
   },
   "dependencies": {
