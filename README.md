@@ -11,7 +11,37 @@
 ## Install
 
 ```sh
-npm install --save metalsmith-pug
+npm install --production --save metalsmith-pug
+```
+
+## Usage
+
+I reccomend using an optimized build matching your Node.js environment version, otherwise, the standard `require` would work just fine.
+
+```js
+/*
+ * Node 6
+ * Built using `babel-preset-es2015-node6`
+ */
+const pug = require('metalsmith-pug/lib/node6')
+
+/*
+ * Node 5
+ * Built using `babel-preset-es2015-node5`
+ */
+const pug = require('metalsmith-pug/lib/node5')
+
+/*
+ * Node 4
+ * Built using `babel-preset-es2015-node4`
+ */
+const pug = require('metalsmith-pug/lib/node4')
+
+/*
+ * Node >=0.10 <=0.12
+ * Built using `babel-preset-es2015`
+ */
+var pug = require('metalsmith-pug')
 ```
 
 ## API
@@ -19,21 +49,23 @@ npm install --save metalsmith-pug
 Pass `options` to the pug plugin and pass it to Metalsmith with the `use` method:
 
 ```js
-var Metalsmith = require('metalsmith')
-var pug = require('metalsmith-pug')
+import Metalsmith from 'metalsmith'
+import pug from 'metalsmith-pug'
 
-var metalsmith = new Metalsmith(__dirname)
-  .use(pug({
-    pretty: false,
-    locals: {
-      postName: 'good post name'
-    },
-    filters: {
-      foo: function (block) {
-        return block.replace('foo', 'bar')
-      }
-    }
-  }))
+const options = {
+  pretty: false,
+  
+  locals: {
+    postName: 'good post name'
+  },
+
+  filters: {
+    foo: block => block.replace('foo', 'bar')
+  }
+}
+
+new Metalsmith(__dirname)
+  .use(pug(options))
 ```
 
 ## CLI
@@ -57,28 +89,19 @@ All options are passed directly to pug. If `options` has a `locals` key, that wi
 any of the `options` parameters for [`pug`](http://jade-lang.com/api/) with the additional plugin specific properties below:
 
 
-| Name          | Type      | Details                                                   | Default |
-| ------------- | --------- | --------------------------------------------------------- | ------- |
-| `useMetadata` | `Boolean` | Expose Metalsmith's global metadata to the pug template.  | `false` |
-| `locals`      | `Object`  | Pass additional locals to the template                    | `{}`    |
-| `filters`     | `Object`  | register functions to be used as template filters         | `{}`    |
+| Name              | Type      | Required | Default | Details                                                 |
+| ----------------- | --------- | -------- | ------- | ------------------------------------------------------- |
+| **`useMetadata`** | `Boolean` | `✖`     | `false` | Expose Metalsmith's global metadata to the pug template |
+| **`locals`**      | `Object`  | `✖`     | `{}`    | Pass additional locals to the template                  |
+| **`filters`**     | `Object`  | `✖`     | `{}`    | register functions to be used as template filters       |
 
-###### Example
+----
+> :copyright: [www.ahmadnassri.com](https://www.ahmadnassri.com/) &nbsp;&middot;&nbsp;
+> License: [ISC](LICENSE) &nbsp;&middot;&nbsp;
+> Github: [@ahmadnassri](https://github.com/ahmadnassri) &nbsp;&middot;&nbsp;
+> Twitter: [@ahmadnassri](https://twitter.com/ahmadnassri)
 
-## Support
-
-Donations are welcome to help support the continuous development of this project.
-
-[![Gratipay][gratipay-image]][gratipay-url]
-[![PayPal][paypal-image]][paypal-url]
-[![Flattr][flattr-image]][flattr-url]
-[![Bitcoin][bitcoin-image]][bitcoin-url]
-
-## License
-
-[MIT](LICENSE) &copy; [Max Bareiss](https://github.com/MaxBareiss), [Ahmad Nassri](https://www.ahmadnassri.com)
-
-[license-url]: https://github.com/ahmadnassri/metalsmith-pug/blob/master/LICENSE
+[license-url]: http://choosealicense.com/licenses/isc/
 
 [travis-url]: https://travis-ci.org/ahmadnassri/metalsmith-pug
 [travis-image]: https://img.shields.io/travis/ahmadnassri/metalsmith-pug.svg?style=flat-square
@@ -94,15 +117,3 @@ Donations are welcome to help support the continuous development of this project
 
 [david-url]: https://david-dm.org/ahmadnassri/metalsmith-pug
 [david-image]: https://img.shields.io/david/ahmadnassri/metalsmith-pug.svg?style=flat-square
-
-[gratipay-url]: https://www.gratipay.com/ahmadnassri/
-[gratipay-image]: https://img.shields.io/gratipay/ahmadnassri.svg?style=flat-square
-
-[paypal-url]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UJ2B2BTK9VLRS&on0=project&os0=metalsmith-pug
-[paypal-image]: http://img.shields.io/badge/paypal-donate-green.svg?style=flat-square
-
-[flattr-url]: https://flattr.com/submit/auto?user_id=codeinchaos&url=https://github.com/ahmadnassri/metalsmith-pug&title=metalsmith-pug&language=&tags=github&category=software
-[flattr-image]: http://img.shields.io/badge/flattr-donate-green.svg?style=flat-square
-
-[bitcoin-image]: http://img.shields.io/badge/bitcoin-1Nb46sZRVG3or7pNaDjthcGJpWhvoPpCxy-green.svg?style=flat-square
-[bitcoin-url]: https://www.coinbase.com/checkouts/ae383ae6bb931a2fa5ad11cec115191e?name=metalsmith-pug
