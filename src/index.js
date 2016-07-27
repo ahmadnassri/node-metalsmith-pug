@@ -2,6 +2,8 @@ import pug from 'pug'
 import path from 'path'
 
 export default function ({ locals = {}, filters = {}, useMetadata = false } = {}) {
+  const opts = arguments[0] || {}
+
   return (files, metalsmith, done) => {
     setImmediate(done)
 
@@ -15,9 +17,9 @@ export default function ({ locals = {}, filters = {}, useMetadata = false } = {}
         return
       }
 
-      var data = files[file]
-      var dir = path.dirname(file)
-      var name = path.basename(file, path.extname(file))
+      let data = files[file]
+      let dir = path.dirname(file)
+      let name = path.basename(file, path.extname(file))
 
       // do we need to add an extension?
       if (path.extname(name) === '') {
@@ -25,7 +27,7 @@ export default function ({ locals = {}, filters = {}, useMetadata = false } = {}
       }
 
       if (dir !== '.') {
-        name = dir + '/' + name
+        name = `${dir}/${name}`
       }
 
       const filename = path.join(metalsmith.source(), file)
@@ -40,13 +42,13 @@ export default function ({ locals = {}, filters = {}, useMetadata = false } = {}
         Object.keys(filters).forEach(filter => (pug.filters[filter] = filters[filter]))
       }
 
-      const options = {
+      const options = Object.assign(opts, {
         filename,
         locals
-      }
+      })
 
       // render
-      var str = pug.compile(data.contents.toString(), options)(locals)
+      let str = pug.compile(data.contents.toString(), options)(locals)
 
       // convert to a buffer
       data.contents = new Buffer(str)

@@ -5,42 +5,59 @@ import rimraf from 'rimraf'
 import { test } from 'tap'
 
 test('metalsmith-jade', tap => {
-  tap.plan(7)
+  tap.plan(8)
 
-  tap.afterEach(done => rimraf('test/*/build', done))
+  tap.afterEach(done => rimraf('test/fixtures/*/build', done))
 
   tap.test('should render html', assert => {
     assert.plan(2)
 
-    let smith = new Metalsmith('test/main')
+    let smith = new Metalsmith('test/fixtures/main')
 
     smith.use(pug())
 
     smith.build(err => {
       assert.equal(err, null)
 
-      fs.exists('test/main/build/index.html', exists => assert.ok(exists))
+      fs.exists('test/fixtures/main/build/index.html', exists => assert.ok(exists))
+    })
+  })
+
+  tap.test('should pass options to pug', assert => {
+    assert.plan(3)
+
+    let smith = new Metalsmith('test/fixtures/main')
+
+    smith.use(pug({ pretty: true }))
+
+    smith.build(err => {
+      assert.equal(err, null)
+
+      fs.readFile('test/fixtures/main/build/pretty.html', (err, data) => {
+        assert.equal(err, null)
+        assert.equal(data.toString(), '\n<div>\n  <h1>Hello</h1>\n</div>')
+      })
     })
   })
 
   tap.test('should render files within directories', assert => {
     assert.plan(2)
 
-    let smith = new Metalsmith('test/main')
+    let smith = new Metalsmith('test/fixtures/main')
 
     smith.use(pug())
 
     smith.build(err => {
       assert.equal(err, null)
 
-      fs.exists('test/main/build/dir/test.html', exists => assert.ok(exists))
+      fs.exists('test/fixtures/main/build/dir/test.html', exists => assert.ok(exists))
     })
   })
 
   tap.test('should render html with locals', assert => {
     assert.plan(3)
 
-    let smith = new Metalsmith('test/main')
+    let smith = new Metalsmith('test/fixtures/main')
     let locals = {
       title: 'Foo'
     }
@@ -50,7 +67,7 @@ test('metalsmith-jade', tap => {
     smith.build(err => {
       assert.equal(err, null)
 
-      fs.readFile('test/main/build/locals.html', (err, data) => {
+      fs.readFile('test/fixtures/main/build/locals.html', (err, data) => {
         assert.equal(err, null)
         assert.equal(data.toString(), '<h1>Foo</h1>')
       })
@@ -60,7 +77,7 @@ test('metalsmith-jade', tap => {
   tap.test('should use Metalsmith.metadata()', assert => {
     assert.plan(3)
 
-    let smith = new Metalsmith('test/main')
+    let smith = new Metalsmith('test/fixtures/main')
 
     smith.metadata({ foo: 'bar' })
     smith.use(pug({ useMetadata: true }))
@@ -68,7 +85,7 @@ test('metalsmith-jade', tap => {
     smith.build(err => {
       assert.equal(err, null)
 
-      fs.readFile('test/main/build/metadata.html', (err, data) => {
+      fs.readFile('test/fixtures/main/build/metadata.html', (err, data) => {
         assert.equal(err, null)
         assert.equal(data.toString(), '<h1>bar</h1>')
       })
@@ -78,7 +95,7 @@ test('metalsmith-jade', tap => {
   tap.test('should use extension prefix as extension', assert => {
     assert.plan(4)
 
-    let smith = new Metalsmith('test/main')
+    let smith = new Metalsmith('test/fixtures/main')
     let locals = {
       foo: 'bar'
     }
@@ -88,10 +105,10 @@ test('metalsmith-jade', tap => {
     smith.build(err => {
       assert.equal(err, null)
 
-      fs.exists('test/main/build/text.txt', exists => {
+      fs.exists('test/fixtures/main/build/text.txt', exists => {
         assert.ok(exists)
 
-        fs.readFile('test/main/build/text.txt', (err, data) => {
+        fs.readFile('test/fixtures/main/build/text.txt', (err, data) => {
           assert.equal(err, null)
           assert.equal(data.toString(), 'bar')
         })
@@ -102,21 +119,21 @@ test('metalsmith-jade', tap => {
   tap.test('should not run on none .pug files', assert => {
     assert.plan(2)
 
-    let smith = new Metalsmith('test/main')
+    let smith = new Metalsmith('test/fixtures/main')
 
     smith.use(pug())
 
     smith.build(err => {
       assert.equal(err, null)
 
-      fs.exists('test/main/file.html', exists => assert.notOk(exists))
+      fs.exists('test/fixtures/main/file.html', exists => assert.notOk(exists))
     })
   })
 
   tap.test('should register pug filters', assert => {
     assert.plan(3)
 
-    let smith = new Metalsmith('test/filters')
+    let smith = new Metalsmith('test/fixtures/filters')
 
     smith.use(pug({
       filters: { foo: block => block }
@@ -125,7 +142,7 @@ test('metalsmith-jade', tap => {
     smith.build(err => {
       assert.equal(err, null)
 
-      fs.readFile('test/filters/build/test.html', (err, data) => {
+      fs.readFile('test/fixtures/filters/build/test.html', (err, data) => {
         assert.equal(err, null)
         assert.equal(data.toString(), 'bar')
       })
