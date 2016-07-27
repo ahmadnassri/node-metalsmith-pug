@@ -1,6 +1,6 @@
 # Metalsmith Pug [![version][npm-version]][npm-url] [![License][npm-license]][license-url]
 
-[Metalsmith](http://www.metalsmith.io/) plugin to convert pug files.
+[Metalsmith](http://www.metalsmith.io/) plugin to convert [pug](https://github.com/pugjs/pug) files.
 
 [![Build Status][travis-image]][travis-url]
 [![Downloads][npm-downloads]][npm-url]
