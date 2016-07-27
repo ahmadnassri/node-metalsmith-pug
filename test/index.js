@@ -1,152 +1,133 @@
-/* global afterEach, describe, it */
-'use strict'
+import fs from 'fs'
+import Metalsmith from 'metalsmith'
+import pug from '../src'
+import rimraf from 'rimraf'
+import { test } from 'tap'
 
-var fs = require('fs')
-var pug = require('..')
-var Metalsmith = require('metalsmith')
-var rimraf = require('rimraf')
-var should = require('should')
+test('metalsmith-jade', tap => {
+  tap.plan(7)
 
-afterEach(function (done) {
-  rimraf('test/*/build', done)
-})
+  tap.afterEach(done => rimraf('test/*/build', done))
 
-describe('metalsmith-pug', function () {
-  it('should render html', function (done) {
-    var smith = new Metalsmith('test/main')
+  tap.test('should render html', assert => {
+    assert.plan(2)
 
-    smith.use(pug())
-
-    smith.build(function (err) {
-      should.not.exist(err)
-
-      fs.exists('test/main/build/index.html', function (exists) {
-        exists.should.be.true
-
-        done()
-      })
-    })
-  })
-
-  it('should render files within directories', function (done) {
-    var smith = new Metalsmith('test/main')
+    let smith = new Metalsmith('test/main')
 
     smith.use(pug())
 
-    smith.build(function (err) {
-      should.not.exist(err)
+    smith.build(err => {
+      assert.equal(err, null)
 
-      fs.exists('test/main/build/dir/test.html', function (exists) {
-        exists.should.be.true
+      fs.exists('test/main/build/index.html', exists => assert.ok(exists))
+    })
+  })
 
-        done()
+  tap.test('should render files within directories', assert => {
+    assert.plan(2)
+
+    let smith = new Metalsmith('test/main')
+
+    smith.use(pug())
+
+    smith.build(err => {
+      assert.equal(err, null)
+
+      fs.exists('test/main/build/dir/test.html', exists => assert.ok(exists))
+    })
+  })
+
+  tap.test('should render html with locals', assert => {
+    assert.plan(3)
+
+    let smith = new Metalsmith('test/main')
+    let locals = {
+      title: 'Foo'
+    }
+
+    smith.use(pug({ locals }))
+
+    smith.build(err => {
+      assert.equal(err, null)
+
+      fs.readFile('test/main/build/locals.html', (err, data) => {
+        assert.equal(err, null)
+        assert.equal(data.toString(), '<h1>Foo</h1>')
       })
     })
   })
 
-  it('should render html with locals', function (done) {
-    var smith = new Metalsmith('test/main')
+  tap.test('should use Metalsmith.metadata()', assert => {
+    assert.plan(3)
 
-    smith.use(pug({
-      locals: {
-        title: 'Foo'
-      }
-    }))
+    let smith = new Metalsmith('test/main')
 
-    smith.build(function (err) {
-      should.not.exist(err)
+    smith.metadata({ foo: 'bar' })
+    smith.use(pug({ useMetadata: true }))
 
-      fs.readFile('test/main/build/locals.html', function (err, data) {
-        should.not.exist(err)
-        data.toString().should.equal('<h1>Foo</h1>')
-        done()
+    smith.build(err => {
+      assert.equal(err, null)
+
+      fs.readFile('test/main/build/metadata.html', (err, data) => {
+        assert.equal(err, null)
+        assert.equal(data.toString(), '<h1>bar</h1>')
       })
     })
   })
 
-  it('should use Metalsmith.metadata()', function (done) {
-    var smith = new Metalsmith('test/main')
+  tap.test('should use extension prefix as extension', assert => {
+    assert.plan(4)
 
-    smith.metadata({
+    let smith = new Metalsmith('test/main')
+    let locals = {
       foo: 'bar'
-    })
+    }
 
-    smith.use(pug({
-      useMetadata: true
-    }))
+    smith.use(pug({ locals }))
 
-    smith.build(function (err) {
-      should.not.exist(err)
+    smith.build(err => {
+      assert.equal(err, null)
 
-      fs.readFile('test/main/build/metadata.html', function (err, data) {
-        should.not.exist(err)
-        data.toString().should.equal('<h1>bar</h1>')
+      fs.exists('test/main/build/text.txt', exists => {
+        assert.ok(exists)
 
-        done()
-      })
-    })
-  })
-
-  it('should use extension prefix as extension', function (done) {
-    var smith = new Metalsmith('test/main')
-
-    smith.use(pug({
-      locals: {
-        foo: 'bar'
-      }
-    }))
-
-    smith.build(function (err) {
-      should.not.exist(err)
-
-      fs.exists('test/main/build/text.txt', function (exists) {
-        exists.should.be.true
-
-        fs.readFile('test/main/build/text.txt', function (err, data) {
-          should.not.exist(err)
-          data.toString().should.equal('bar')
-
-          done()
+        fs.readFile('test/main/build/text.txt', (err, data) => {
+          assert.equal(err, null)
+          assert.equal(data.toString(), 'bar')
         })
       })
     })
   })
 
-  it('should not run on none .pug files', function (done) {
-    var smith = new Metalsmith('test/main')
+  tap.test('should not run on none .pug files', assert => {
+    assert.plan(2)
+
+    let smith = new Metalsmith('test/main')
 
     smith.use(pug())
 
-    smith.build(function (err) {
-      should.not.exist(err)
+    smith.build(err => {
+      assert.equal(err, null)
 
-      fs.exists('test/main/file.html', function (exists) {
-        exists.should.be.false
-
-        done()
-      })
+      fs.exists('test/main/file.html', exists => assert.notOk(exists))
     })
   })
 
-  it('should register pug filters', function (done) {
-    var smith = new Metalsmith('test/filters')
+  tap.test('should register pug filters', assert => {
+    assert.plan(3)
+
+    let smith = new Metalsmith('test/filters')
 
     smith.use(pug({
-      filters: {
-        foo: function (block) {
-          return block
-        }
-      }
+      filters: { foo: block => block }
     }))
 
-    smith.build(function (err) {
-      should.not.exist(err)
+    smith.build(err => {
+      assert.equal(err, null)
 
-      fs.readFile('test/filters/build/test.html', function (err, data) {
-        should.not.exist(err)
-        data.toString().should.equal('bar')
-
-        done()
+      fs.readFile('test/filters/build/test.html', (err, data) => {
+        assert.equal(err, null)
+        assert.equal(data.toString(), 'bar')
       })
     })
   })
