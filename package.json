@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/ahmadnassri/metalsmith-pug.git"
   },
-  "license": "MIT",
+  "license": "ISC",
   "main": "lib/index",
   "keywords": [
     "pug",
