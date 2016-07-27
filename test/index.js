@@ -5,7 +5,7 @@ import rimraf from 'rimraf'
 import { test } from 'tap'
 
 test('metalsmith-jade', tap => {
-  tap.plan(8)
+  tap.plan(9)
 
   tap.afterEach(done => rimraf('test/fixtures/*/build', done))
 
@@ -20,6 +20,20 @@ test('metalsmith-jade', tap => {
       assert.equal(err, null)
 
       fs.exists('test/fixtures/main/build/index.html', exists => assert.ok(exists))
+    })
+  })
+
+  tap.test('should support .jade files', assert => {
+    assert.plan(2)
+
+    let smith = new Metalsmith('test/fixtures/main')
+
+    smith.use(pug())
+
+    smith.build(err => {
+      assert.equal(err, null)
+
+      fs.exists('test/fixtures/main/build/legacy.html', exists => assert.ok(exists))
     })
   })
 

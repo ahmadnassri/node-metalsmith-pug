@@ -13,7 +13,7 @@ export default function ({ locals = {}, filters = {}, useMetadata = false } = {}
     }
 
     Object.keys(files).forEach(function (file) {
-      if (!/\.pug/.test(path.extname(file))) {
+      if (!/\.(pug|jade)/.test(path.extname(file))) {
         return
       }
 
