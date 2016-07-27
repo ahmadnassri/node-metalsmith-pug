@@ -71,8 +71,6 @@
     "tap-mocha-reporter": "0.0.26"
   },
   "dependencies": {
-    "debug-log": "^1.0.0",
-    "pug": "^2.0.0-beta4",
-    "xtend": "^4.0.1"
+    "pug": "^2.0.0-beta4"
   }
 }
