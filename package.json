@@ -15,7 +15,7 @@
     "plugin"
   ],
   "engines": {
-    "node": ">=0.10"
+    "node": ">= 4"
   },
   "files": [
     "lib",
