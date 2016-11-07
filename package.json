@@ -67,7 +67,7 @@
     "metalsmith": "^1.7.0",
     "rimraf": "^2.5.4",
     "semantic-release": "^4.3.5",
-    "standard": "^7.1.2",
+    "standard": "^8.1.0",
     "tap": "^6.2.0",
     "tap-mocha-reporter": "0.0.26"
   },
