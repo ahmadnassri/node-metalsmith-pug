@@ -12,7 +12,7 @@
 ## Install
 
 ```bash
-npm install --production --save metalsmith-pug
+npm install --only=production --save metalsmith-pug
 ```
 
 ## Usage
@@ -47,7 +47,7 @@ import pug from 'metalsmith-pug'
 
 const options = {
   pretty: false,
-  
+
   locals: {
     postName: 'good post name'
   },
