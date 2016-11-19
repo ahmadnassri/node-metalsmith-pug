@@ -1,47 +1,40 @@
 # Metalsmith Pug [![version][npm-version]][npm-url] [![License][npm-license]][license-url]
 
-[Metalsmith](http://www.metalsmith.io/) plugin to convert [pug](https://github.com/pugjs/pug) files.
+> [Metalsmith](http://www.metalsmith.io/) plugin to convert [pug](https://github.com/pugjs/pug) files.
 
 [![Build Status][travis-image]][travis-url]
 [![Downloads][npm-downloads]][npm-url]
 [![Code Climate][codeclimate-quality]][codeclimate-url]
 [![Coverage Status][codeclimate-coverage]][codeclimate-url]
+[![Dependency Status][dependencyci-image]][dependencyci-url]
 [![Dependencies][david-image]][david-url]
 
 ## Install
 
-```sh
+```bash
 npm install --production --save metalsmith-pug
 ```
 
 ## Usage
 
-I reccomend using an optimized build matching your Node.js environment version, otherwise, the standard `require` would work just fine.
+I recommend using an optimized build matching your Node.js environment version, otherwise, the standard `require` would work just fine with any version of Node `>= v4.0` .
 
 ```js
 /*
+ * Node 7
+ */
+const metalsmith-jade = require('metalsmith-jade/lib/node7')
+
+/*
  * Node 6
- * Built using `babel-preset-es2015-node6`
  */
-const pug = require('metalsmith-pug/lib/node6')
+const metalsmith-jade = require('metalsmith-jade/lib/node6')
 
 /*
- * Node 5
- * Built using `babel-preset-es2015-node5`
+ * Node 4 (Default)
+ * Note: additional ES2015 polyfills may be required
  */
-const pug = require('metalsmith-pug/lib/node5')
-
-/*
- * Node 4
- * Built using `babel-preset-es2015-node4`
- */
-const pug = require('metalsmith-pug/lib/node4')
-
-/*
- * Node >=0.10 <=0.12
- * Built using `babel-preset-es2015`
- */
-var pug = require('metalsmith-pug')
+var metalsmith-jade = require('metalsmith-jade')
 ```
 
 ## API
@@ -96,8 +89,8 @@ any of the `options` parameters for [`pug`](http://jade-lang.com/api/) with the 
 | **`filters`**     | `Object`  | `✖`     | `{}`    | register functions to be used as template filters       |
 
 ----
-> :copyright: [www.ahmadnassri.com](https://www.ahmadnassri.com/) &nbsp;&middot;&nbsp;
-> License: [ISC](LICENSE) &nbsp;&middot;&nbsp;
+> :copyright: [ahmadnassri.com](https://www.ahmadnassri.com/) &nbsp;&middot;&nbsp;
+> License: [ISC][license-url] &nbsp;&middot;&nbsp;
 > Github: [@ahmadnassri](https://github.com/ahmadnassri) &nbsp;&middot;&nbsp;
 > Twitter: [@ahmadnassri](https://twitter.com/ahmadnassri)
 
@@ -117,3 +110,6 @@ any of the `options` parameters for [`pug`](http://jade-lang.com/api/) with the 
 
 [david-url]: https://david-dm.org/ahmadnassri/metalsmith-pug
 [david-image]: https://img.shields.io/david/ahmadnassri/metalsmith-pug.svg?style=flat-square
+
+[dependencyci-url]: https://dependencyci.com/github/ahmadnassri/metalsmith-pug
+[dependencyci-image]: https://dependencyci.com/github/ahmadnassri/metalsmith-pug/badge?style=flat-square

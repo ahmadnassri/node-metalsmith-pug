@@ -9,10 +9,10 @@ export default function ({ locals = {}, filters = {}, useMetadata = false } = {}
 
     // extend with metalsmith global metadata
     if (useMetadata) {
-      locals = Object.assign(locals, metalsmith.metadata())
+      locals = Object.assign({}, locals, metalsmith.metadata())
     }
 
-    Object.keys(files).forEach(function (file) {
+    Object.keys(files).forEach((file) => {
       if (!/\.(pug|jade)/.test(path.extname(file))) {
         return
       }
@@ -39,7 +39,7 @@ export default function ({ locals = {}, filters = {}, useMetadata = false } = {}
 
       // assign filters
       if (filters) {
-        Object.keys(filters).forEach(filter => (pug.filters[filter] = filters[filter]))
+        Object.keys(filters).forEach((filter) => (pug.filters[filter] = filters[filter]))
       }
 
       const options = Object.assign(opts, {

@@ -4,47 +4,47 @@ import pug from '../src'
 import rimraf from 'rimraf'
 import { test } from 'tap'
 
-test('metalsmith-jade', tap => {
+test('metalsmith-jade', (tap) => {
   tap.plan(9)
 
-  tap.afterEach(done => rimraf('test/fixtures/*/build', done))
+  tap.afterEach((done) => rimraf('test/fixtures/*/build', done))
 
-  tap.test('should render html', assert => {
+  tap.test('should render html', (assert) => {
     assert.plan(2)
 
     let smith = new Metalsmith('test/fixtures/main')
 
     smith.use(pug())
 
-    smith.build(err => {
+    smith.build((err) => {
       assert.equal(err, null)
 
-      fs.exists('test/fixtures/main/build/index.html', exists => assert.ok(exists))
+      fs.exists('test/fixtures/main/build/index.html', (exists) => assert.ok(exists))
     })
   })
 
-  tap.test('should support .jade files', assert => {
+  tap.test('should support .jade files', (assert) => {
     assert.plan(2)
 
     let smith = new Metalsmith('test/fixtures/main')
 
     smith.use(pug())
 
-    smith.build(err => {
+    smith.build((err) => {
       assert.equal(err, null)
 
-      fs.exists('test/fixtures/main/build/legacy.html', exists => assert.ok(exists))
+      fs.exists('test/fixtures/main/build/legacy.html', (exists) => assert.ok(exists))
     })
   })
 
-  tap.test('should pass options to pug', assert => {
+  tap.test('should pass options to pug', (assert) => {
     assert.plan(3)
 
     let smith = new Metalsmith('test/fixtures/main')
 
     smith.use(pug({ pretty: true }))
 
-    smith.build(err => {
+    smith.build((err) => {
       assert.equal(err, null)
 
       fs.readFile('test/fixtures/main/build/pretty.html', (err, data) => {
@@ -54,21 +54,21 @@ test('metalsmith-jade', tap => {
     })
   })
 
-  tap.test('should render files within directories', assert => {
+  tap.test('should render files within directories', (assert) => {
     assert.plan(2)
 
     let smith = new Metalsmith('test/fixtures/main')
 
     smith.use(pug())
 
-    smith.build(err => {
+    smith.build((err) => {
       assert.equal(err, null)
 
-      fs.exists('test/fixtures/main/build/dir/test.html', exists => assert.ok(exists))
+      fs.exists('test/fixtures/main/build/dir/test.html', (exists) => assert.ok(exists))
     })
   })
 
-  tap.test('should render html with locals', assert => {
+  tap.test('should render html with locals', (assert) => {
     assert.plan(3)
 
     let smith = new Metalsmith('test/fixtures/main')
@@ -78,7 +78,7 @@ test('metalsmith-jade', tap => {
 
     smith.use(pug({ locals }))
 
-    smith.build(err => {
+    smith.build((err) => {
       assert.equal(err, null)
 
       fs.readFile('test/fixtures/main/build/locals.html', (err, data) => {
@@ -88,7 +88,7 @@ test('metalsmith-jade', tap => {
     })
   })
 
-  tap.test('should use Metalsmith.metadata()', assert => {
+  tap.test('should use Metalsmith.metadata()', (assert) => {
     assert.plan(3)
 
     let smith = new Metalsmith('test/fixtures/main')
@@ -96,7 +96,7 @@ test('metalsmith-jade', tap => {
     smith.metadata({ foo: 'bar' })
     smith.use(pug({ useMetadata: true }))
 
-    smith.build(err => {
+    smith.build((err) => {
       assert.equal(err, null)
 
       fs.readFile('test/fixtures/main/build/metadata.html', (err, data) => {
@@ -106,7 +106,7 @@ test('metalsmith-jade', tap => {
     })
   })
 
-  tap.test('should use extension prefix as extension', assert => {
+  tap.test('should use extension prefix as extension', (assert) => {
     assert.plan(4)
 
     let smith = new Metalsmith('test/fixtures/main')
@@ -116,10 +116,10 @@ test('metalsmith-jade', tap => {
 
     smith.use(pug({ locals }))
 
-    smith.build(err => {
+    smith.build((err) => {
       assert.equal(err, null)
 
-      fs.exists('test/fixtures/main/build/text.txt', exists => {
+      fs.exists('test/fixtures/main/build/text.txt', (exists) => {
         assert.ok(exists)
 
         fs.readFile('test/fixtures/main/build/text.txt', (err, data) => {
@@ -130,21 +130,21 @@ test('metalsmith-jade', tap => {
     })
   })
 
-  tap.test('should not run on none .pug files', assert => {
+  tap.test('should not run on none .pug files', (assert) => {
     assert.plan(2)
 
     let smith = new Metalsmith('test/fixtures/main')
 
     smith.use(pug())
 
-    smith.build(err => {
+    smith.build((err) => {
       assert.equal(err, null)
 
-      fs.exists('test/fixtures/main/file.html', exists => assert.notOk(exists))
+      fs.exists('test/fixtures/main/file.html', (exists) => assert.notOk(exists))
     })
   })
 
-  tap.test('should register pug filters', assert => {
+  tap.test('should register pug filters', (assert) => {
     assert.plan(3)
 
     let smith = new Metalsmith('test/fixtures/filters')
@@ -153,7 +153,7 @@ test('metalsmith-jade', tap => {
       filters: { foo: block => block }
     }))
 
-    smith.build(err => {
+    smith.build((err) => {
       assert.equal(err, null)
 
       fs.readFile('test/fixtures/filters/build/test.html', (err, data) => {
