@@ -51,11 +51,11 @@
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-preset-env": "0.0.8",
+    "babel-preset-env": "0.0.9",
     "babel-register": "^6.18.0",
     "codeclimate-test-reporter": "^0.4.0",
     "cz-conventional-changelog": "^1.2.0",
-    "echint": "^1.5.3",
+    "echint": "^2.1.0",
     "metalsmith": "^2.3.0",
     "rimraf": "^2.5.4",
     "semantic-release": "^6.3.2",
