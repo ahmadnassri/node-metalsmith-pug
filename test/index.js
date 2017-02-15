@@ -5,7 +5,7 @@ import rimraf from 'rimraf'
 import { test } from 'tap'
 
 test('metalsmith-jade', (tap) => {
-  tap.plan(9)
+  tap.plan(10)
 
   tap.afterEach((done) => rimraf('test/fixtures/*/build', done))
 
@@ -160,6 +160,17 @@ test('metalsmith-jade', (tap) => {
         assert.equal(err, null)
         assert.equal(data.toString(), 'bar')
       })
+    })
+  })
+
+  tap.test('should catch thrown errors', (assert) => {
+    let smith = new Metalsmith('test/fixtures/should-throw')
+
+    smith.use(pug())
+
+    smith.build((err) => {
+      assert.ok(err)
+      assert.end()
     })
   })
 })
