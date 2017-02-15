@@ -60,7 +60,7 @@ export default function ({ locals = {}, filters = {}, useMetadata = false } = {}
       })
 
       setImmediate(done)
-    } catch(err) {
+    } catch (err) {
       setImmediate(done, err)
     }
   }
