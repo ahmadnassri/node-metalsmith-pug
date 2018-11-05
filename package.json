@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
-    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-add-module-exports": "^0.3.0",
     "babel-preset-env": "0.0.9",
     "babel-register": "^6.18.0",
     "codeclimate-test-reporter": "^0.4.0",
