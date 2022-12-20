@@ -1,9 +1,5 @@
 # ----------------------------------------------- #
-# Note: this file originates in template-node-lib #
+# Note: this file originates in template-template #
 # ----------------------------------------------- #
 
-*.log
-.nyc_output
-coverage
-node_modules
-**/dist
+github: [ahmadnassri]

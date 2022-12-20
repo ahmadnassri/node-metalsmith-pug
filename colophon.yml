@@ -1,0 +1,8 @@
+version: 2.0
+
+id: node-metalsmith-pug
+
+about:
+  title: Metalsmith Pug
+  description: Metalsmith plugin to convert pug files
+  repository: ahmadnassri/node-metalsmith-pug

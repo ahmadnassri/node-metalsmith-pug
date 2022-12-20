@@ -1,14 +1,7 @@
-# Metalsmith Pug
-
-Metalsmith plugin to convert pug files
-
-[![license][license-img]][license-url]
-[![release][release-img]][release-url]
-[![semantic][semantic-img]][semantic-url]
 
 ## Install
 
-``` bash
+```bash
 npm install metalsmith-pug
 ```
 
@@ -16,7 +9,7 @@ npm install metalsmith-pug
 
 I recommend using an optimized build matching your Node.js environment version, otherwise, the standard `require` would work just fine with any version of Node `>= v4.0` .
 
-``` js
+```js
 /*
  * Node 7
  */
@@ -38,7 +31,7 @@ var metalsmith-jade = require('metalsmith-jade')
 
 Pass `options` to the pug plugin and pass it to Metalsmith with the `use` method:
 
-``` js
+```js
 import Metalsmith from 'metalsmith'
 import pug from 'metalsmith-pug'
 
@@ -62,7 +55,7 @@ new Metalsmith(__dirname)
 
 You can also use the plugin with the Metalsmith CLI by adding a key to your `metalsmith.json` file:
 
-``` json
+```json
 {
   "plugins": {
     "metalsmith-pug": {
@@ -76,25 +69,10 @@ All options are passed directly to pug. If `options` has a `locals` key, that wi
 
 ## Options
 
-any of the `options` parameters for [`pug`][] with the additional plugin specific properties below:
+any of the `options` parameters for [`pug`](http://jade-lang.com/api/) with the additional plugin specific properties below:
 
 | Name              | Type      | Required | Default | Details                                                 |
-|-------------------|-----------|----------|---------|---------------------------------------------------------|
+| ----------------- | --------- | -------- | ------- | ------------------------------------------------------- |
 | **`useMetadata`** | `Boolean` | ❌       | `false` | Expose Metalsmith's global metadata to the pug template |
 | **`locals`**      | `Object`  | ❌       | `{}`    | Pass additional locals to the template                  |
 | **`filters`**     | `Object`  | ❌       | `{}`    | register functions to be used as template filters       |
-
-  [`pug`]: http://jade-lang.com/api/
-
-----
-> Author: [Ahmad Nassri](https://www.ahmadnassri.com/) &bull;
-> Twitter: [@AhmadNassri](https://twitter.com/AhmadNassri)
-
-[license-url]: LICENSE
-[license-img]: https://badgen.net/github/license/ahmadnassri/node-metalsmith-pug
-
-[release-url]: https://github.com/ahmadnassri/node-metalsmith-pug/releases
-[release-img]: https://badgen.net/github/release/ahmadnassri/node-metalsmith-pug
-
-[semantic-url]: https://github.com/ahmadnassri/node-metalsmith-pug/actions?query=workflow%3Arelease
-[semantic-img]: https://badgen.net/badge/📦/semantically%20released/blue
