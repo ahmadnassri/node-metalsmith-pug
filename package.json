@@ -1,14 +1,20 @@
 {
-  "version": "0.0.0-development",
+  "version": "0.0.0-semantically-released",
   "name": "metalsmith-pug",
-  "description": "Metalsmith plugin to convert pug files.",
-  "author": "Ahmad Nassri <ahmad@ahmadnassri.com> (https://www.ahmadnassri.com/)",
+  "description": "Metalsmith plugin to convert pug files",
+  "author": "Ahmad Nassri <opensource@ahmadnassri.net> (https://www.ahmadnassri.com)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ahmadnassri/metalsmith-pug.git"
+    "url": "https://github.com/ahmadnassri/node-metalsmith-pug.git"
   },
-  "license": "ISC",
-  "main": "lib/index.js",
+  "bugs": {
+    "url": "https://github.com/ahmadnassri/node-metalsmith-pug/issues"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/ahmadnassri"
+  },
+  "license": "MIT",
   "keywords": [
     "pug",
     "jade",
@@ -16,53 +22,24 @@
     "plugin"
   ],
   "engines": {
-    "node": ">=4"
+    "node": ">=14"
   },
   "files": [
-    "lib",
     "src"
   ],
-  "bugs": {
-    "url": "https://github.com/ahmadnassri/metalsmith-pug/issues"
-  },
+  "main": "src/index.js",
   "scripts": {
-    "compile": "babel -q src",
-    "test": "BABEL_ENV=test tap test/*.js --reporter spec --node-arg=--require --node-arg=babel-register",
-    "pretest": "snazzy && echint",
-    "coverage": "BABEL_ENV=test tap test/*.js --reporter silent --coverage --nyc-arg=--require --nyc-arg=babel-register",
-    "codeclimate": "BABEL_ENV=test tap --coverage-report=text-lcov | codeclimate-test-reporter",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
-  },
-  "standard": {
-    "ignore": [
-      "lib/**"
-    ]
-  },
-  "echint": {
-    "ignore": [
-      "lib/**"
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
+    "test": "tap test --no-coverage",
+    "test:ci": "tap test --100",
+    "test:watch": "tap test --watch",
+    "test:report": "opener coverage/lcov-report/index.html"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-plugin-add-module-exports": "^1.0.0",
-    "babel-preset-env": "0.0.9",
-    "babel-register": "^6.18.0",
-    "codeclimate-test-reporter": "^0.4.0",
-    "cz-conventional-changelog": "^1.2.0",
-    "echint": "^2.1.0",
-    "metalsmith": "^2.3.0",
-    "rimraf": "^2.5.4",
-    "semantic-release": "^15.0.0",
-    "snazzy": "^5.0.0",
-    "tap": "^12.0.0"
+    "metalsmith": "^2.5.1",
+    "rimraf": "^3.0.2",
+    "tap": "^16.3.2"
   },
   "dependencies": {
-    "pug": "^2.0.0-beta6"
+    "pug": "^3.0.2"
   }
 }

@@ -1,7 +1,7 @@
-import pug from 'pug'
-import path from 'path'
+const pug = require('pug')
+const path = require('path')
 
-export default function ({ locals = {}, filters = {}, useMetadata = false } = {}) {
+module.exports = function ({ locals = {}, filters = {}, useMetadata = false } = {}) {
   const opts = arguments[0] || {}
 
   return (files, metalsmith, done) => {
@@ -17,8 +17,8 @@ export default function ({ locals = {}, filters = {}, useMetadata = false } = {}
         return
       }
 
-      let data = files[file]
-      let dir = path.dirname(file)
+      const data = files[file]
+      const dir = path.dirname(file)
       let name = path.basename(file, path.extname(file))
 
       // do we need to add an extension?
@@ -38,6 +38,7 @@ export default function ({ locals = {}, filters = {}, useMetadata = false } = {}
       }
 
       // assign filters
+      /* istanbul ignore else */
       if (filters) {
         Object.keys(filters).forEach((filter) => (pug.filters[filter] = filters[filter]))
       }
@@ -48,10 +49,10 @@ export default function ({ locals = {}, filters = {}, useMetadata = false } = {}
       })
 
       // render
-      let str = pug.compile(data.contents.toString(), options)(locals)
+      const str = pug.compile(data.contents.toString(), options)(locals)
 
       // convert to a buffer
-      data.contents = new Buffer(str)
+      data.contents = Buffer.from(str)
 
       // remove from global files object
       delete files[file]
